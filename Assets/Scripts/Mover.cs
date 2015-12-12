@@ -15,8 +15,8 @@ public class Mover : MonoBehaviour {
 			float deltaX = (TargetPos.GetComponent<InGamePosition>().X - myPos.LastFullX) * Speed * Time.deltaTime;
 			float deltaY = (TargetPos.GetComponent<InGamePosition>().Y - myPos.LastFullY) * Speed * Time.deltaTime;
 
-			Debug.Log("Moving by " + deltaX + " and " + deltaY);
 			if (Mathf.Abs(deltaX) <= 0.001 && Mathf.Abs(deltaY) <= 0.001) {
+				GetComponent<Animator>().SetFloat("speed", 0.0f);
 				Destroy(TargetPos.gameObject.transform.GetChild(0).gameObject.GetComponent<Highlight>());
 				Destroy(this);
 			}
@@ -32,6 +32,8 @@ public class Mover : MonoBehaviour {
 			Speed = speed;
 			TargetPos = pos;
 			pos.gameObject.transform.GetChild(0).gameObject.AddComponent<Highlight>();
+			GetComponent<Animator>().SetFloat("speed", 1.0f);
+			
 		} else {
 			InGamePosition pos2 = GetComponent<InGamePosition>();
 			throw new System.Exception("Moving only to neighbour tiles. Trying to move from : " + pos2.X + ", " + pos2.Y + " to " + pos.X + ", " + pos.Y);
