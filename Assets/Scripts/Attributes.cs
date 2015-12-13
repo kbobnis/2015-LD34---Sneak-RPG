@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Attributes : MonoBehaviour {
 
-	public int Speed;
+	public float Speed;
 
 	// Use this for initialization
 	void Start () {

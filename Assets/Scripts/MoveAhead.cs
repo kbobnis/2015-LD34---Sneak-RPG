@@ -18,10 +18,10 @@ public class MoveAhead : MonoBehaviour {
 
 		if (DistanceLeft <= 0) {
 			myPos.MakePosExact();
-			GetComponent<Animator>().SetFloat("speed", 0.0f);
+
+			gameObject.AddComponent<AnimationCooldown>().Set("speed", Speed, 0.0f);
 			Destroy(this);
 		}
-		
 	}
 
 	internal void Move(float speed) {
@@ -30,7 +30,10 @@ public class MoveAhead : MonoBehaviour {
 		DistanceLeft = 1;
 
 		Speed = speed;
-		GetComponent<Animator>().SetFloat("speed", 1.0f);
+		if (gameObject.GetComponent<AnimationCooldown>()) {
+			Destroy(gameObject.GetComponent<AnimationCooldown>());
+		}
+		GetComponent<Animator>().SetFloat("speed", speed);
 			
 	}
 }

@@ -5,7 +5,7 @@ public class TurnAround : MonoBehaviour {
 
 	private float TargetRotation;
 	private float Rotation;
-	private int Speed;
+	private float Speed;
 
 	void Update () {
 		if (TargetRotation != null) {
@@ -17,7 +17,7 @@ public class TurnAround : MonoBehaviour {
 			if (Mathf.Abs( TargetRotation - gameObject.GetComponent<InGamePosition>().Rotation ) < 2.1f * Speed) {
 				//correct the rotation to proper x * 90 value
 				myPos.MakeRotationExact();
-				GetComponent<Animator>().SetFloat("speed", 0.0f);
+				//GetComponent<Animator>().SetFloat("speed", 0.0f);
 				Destroy(this);
 			} else {
 				myPos.Rotation += deltaRot;
@@ -28,7 +28,7 @@ public class TurnAround : MonoBehaviour {
 	
 	}
 
-	internal void TurnBy(Side howTurn, int speed) {
+	internal void TurnBy(Side howTurn, float speed) {
 		Rotation = (int)howTurn;
 		TargetRotation = (int)howTurn + gameObject.GetComponent<InGamePosition>().Rotation;
 		Speed = speed;
