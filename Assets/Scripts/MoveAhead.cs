@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Mover : MonoBehaviour {
+public class MoveAhead : MonoBehaviour {
 
 	private float Speed;
 	private InGamePosition TargetPos;
@@ -17,7 +17,6 @@ public class Mover : MonoBehaviour {
 
 			if (Mathf.Abs(deltaX) <= 0.001 && Mathf.Abs(deltaY) <= 0.001) {
 				GetComponent<Animator>().SetFloat("speed", 0.0f);
-				Destroy(TargetPos.gameObject.transform.GetChild(0).gameObject.GetComponent<Highlight>());
 				Destroy(this);
 			}
 
@@ -26,17 +25,25 @@ public class Mover : MonoBehaviour {
 		}
 	}
 
-	internal void MoveTo(InGamePosition pos, float speed) {
+	internal void MoveTo(InGamePosition nextPos, float speed) {
+
 		//only moving to direct neighbours
-		if (gameObject.GetComponent<InGamePosition>().IsNeighbour(pos)) {
-			Speed = speed;
-			TargetPos = pos;
-			pos.gameObject.transform.GetChild(0).gameObject.AddComponent<Highlight>();
-			GetComponent<Animator>().SetFloat("speed", 1.0f);
-			
-		} else {
+		if (!gameObject.GetComponent<InGamePosition>().IsNeighbour(nextPos)) {
 			InGamePosition pos2 = GetComponent<InGamePosition>();
-			throw new System.Exception("Moving only to neighbour tiles. Trying to move from : " + pos2.X + ", " + pos2.Y + " to " + pos.X + ", " + pos.Y);
+			throw new System.Exception("Moving only to neighbour tiles. Trying to move from : " + pos2.X + ", " + pos2.Y + " to " + nextPos.X + ", " + nextPos.Y);
 		}
+
+		//check if it doesn't need to turn first
+		InGamePosition myPos = GetComponent<InGamePosition>();
+		//Side turnHow = myPos.Side.GetDiff(myPos.GetDirection(nextPos));
+		//if (turnHow != Side.Up) {
+			//throw new System.Exception("You can only move forward. Please tell the programmer to turn around your hero first.");
+		//}
+
+		Speed = speed;
+		TargetPos = nextPos;
+		GetComponent<Animator>().SetFloat("speed", 1.0f);
+			
 	}
 }
+
