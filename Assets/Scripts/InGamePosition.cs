@@ -37,6 +37,7 @@ public class InGamePosition : MonoBehaviour {
 		ExactY = transform.position.z;
 		LastFullX = X;
 		LastFullY = Y;
+		Rotation = transform.eulerAngles.y;
 	}
 
 	void Update () {
@@ -89,5 +90,10 @@ public class InGamePosition : MonoBehaviour {
 
 	internal bool IsTheSame(InGamePosition other) {
 		return X == other.X && Y == other.Y;
+	}
+
+	internal void MakePosExact() {
+		ExactX = Mathf.Round(ExactX);
+		ExactY = Mathf.Round(ExactY);
 	}
 }

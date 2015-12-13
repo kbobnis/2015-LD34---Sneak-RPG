@@ -13,8 +13,6 @@ public class TouchController : MonoBehaviour {
 
 	void Start() {
 		Hero.GetComponent<AnimationSounds>().Sounds.Add("speed", HeroCrouchWalk);
-
-
 	}
 
 	void Update () {
@@ -44,5 +42,5 @@ public class TouchController : MonoBehaviour {
 }
 
 public enum Action {
-	Turn, Move
+	TurnLeft, TurnRight, TurnAround, MoveForward
 }

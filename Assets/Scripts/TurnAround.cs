@@ -10,11 +10,11 @@ public class TurnAround : MonoBehaviour {
 	void Update () {
 		if (TargetRotation != null) {
 
-			float deltaRot = Speed * Time.deltaTime * Rotation;
+			float deltaRot = Speed * 2 * Time.deltaTime * Rotation;
 			InGamePosition myPos = GetComponent<InGamePosition>();
 
 			//Debug.Log("delta rotation: " + Mathf.Abs(TargetRotation - gameObject.GetComponent<InGamePosition>().Rotation ));
-			if (Mathf.Abs( TargetRotation - gameObject.GetComponent<InGamePosition>().Rotation ) < 1 * Speed) {
+			if (Mathf.Abs( TargetRotation - gameObject.GetComponent<InGamePosition>().Rotation ) < 2.1f * Speed) {
 				//correct the rotation to proper x * 90 value
 				myPos.MakeRotationExact();
 				GetComponent<Animator>().SetFloat("speed", 0.0f);

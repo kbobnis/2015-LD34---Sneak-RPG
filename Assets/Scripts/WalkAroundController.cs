@@ -26,7 +26,7 @@ public class WalkAroundController : MonoBehaviour {
 					gameObject.AddComponent<TurnAround>().TurnBy(howTurn, GetComponent<Attributes>().Speed);
 				} else {
 					//whatever just go
-					gameObject.AddComponent<MoveAhead>().MoveTo(TargetPos, GetComponent<Attributes>().Speed);
+					gameObject.AddComponent<MoveAhead>().Move(GetComponent<Attributes>().Speed);
 					TargetPos = null;
 				}
 			}
