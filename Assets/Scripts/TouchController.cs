@@ -7,7 +7,15 @@ public class TouchController : MonoBehaviour {
 	public GameObject ActualTargetTile;
 	public GameObject Hero;
 
+	public AudioClip HeroCrouchWalk;
+
 	public List<Action> Actions = new List<Action>();
+
+	void Start() {
+		Hero.GetComponent<AnimationSounds>().Sounds.Add("speed", HeroCrouchWalk);
+
+
+	}
 
 	void Update () {
 
