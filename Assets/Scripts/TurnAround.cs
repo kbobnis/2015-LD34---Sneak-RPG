@@ -4,33 +4,29 @@ using System.Collections;
 public class TurnAround : MonoBehaviour {
 
 	private float TargetRotation;
-	private float Rotation;
+	private float RotationAngle;
+	private float RotationLeft;
 	private float Speed;
 
 	void Update () {
 		if (TargetRotation != null) {
-
-			float deltaRot = Speed * 2 * Time.deltaTime * Rotation;
+			float deltaRot = Speed * Time.deltaTime * RotationAngle;
+			RotationLeft -= Mathf.Abs( deltaRot );
 			InGamePosition myPos = GetComponent<InGamePosition>();
 
-			//Debug.Log("delta rotation: " + Mathf.Abs(TargetRotation - gameObject.GetComponent<InGamePosition>().Rotation ));
-			if (Mathf.Abs( TargetRotation - gameObject.GetComponent<InGamePosition>().Rotation ) < 2.1f * Speed) {
-				//correct the rotation to proper x * 90 value
+			if (RotationLeft <= 0) {
 				myPos.MakeRotationExact();
-				//GetComponent<Animator>().SetFloat("speed", 0.0f);
 				Destroy(this);
 			} else {
 				myPos.Rotation += deltaRot;
 			}
-
-			
 		}
-	
 	}
 
 	internal void TurnBy(Side howTurn, float speed) {
-		Rotation = (int)howTurn;
+		RotationAngle = (int)howTurn;
+		RotationLeft = Mathf.Abs(RotationAngle);
 		TargetRotation = (int)howTurn + gameObject.GetComponent<InGamePosition>().Rotation;
-		Speed = speed;
+		Speed = speed * 2; //because turning around has to be faster than moving to look the same
 	}
 }
