@@ -17,7 +17,9 @@ public class MonsterSeesIt : MonoBehaviour {
 	}
 
 	void OnDestroy() {
-		gameObject.GetComponent<Tile>().Floor.GetComponent<MeshRenderer>().materials = OldMat;
+		if (gameObject.GetComponents<MonsterSeesIt>().Length <= 1) {
+			gameObject.GetComponent<Tile>().Floor.GetComponent<MeshRenderer>().materials = Game.Me.StandardMaterial;
+		}
 	}
 
 	internal void Prepare(Attributes monstersAttributes, float distance, float timeActive, Material[] whenHeSeesIt) {

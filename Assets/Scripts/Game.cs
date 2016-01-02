@@ -7,7 +7,7 @@ public class Game : MonoBehaviour {
 
 	public static Game Me;
 
-	public Material StandardMaterial;
+	public Material[] StandardMaterial;
 	public Material HighlightMaterial;
 	public Material CanGoThereMaterial;
 	public Material[] MonsterSeesMaterial;

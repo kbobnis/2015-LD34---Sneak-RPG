@@ -15,15 +15,18 @@ public class IHaveEyes : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (LastUpdate + HowOften < Time.time) {
+		if (true || LastUpdate + HowOften < Time.time) {
 			LastUpdate = Time.time;
 
 			Vector3 start = transform.position + transform.up * 1.3f;
 			Vector3 finish = transform.forward - transform.up * 1.3f;
 			Debug.DrawRay(start, finish);
+			Vector3 finish2 = transform.forward * 2 - transform.up * 1.3f;
+			Debug.DrawRay(start, finish2);
 
 			List<Ray> rays = new List<Ray>();
 			rays.Add(new Ray(start, finish));
+			rays.Add(new Ray(start, finish2));
 
 			foreach (Ray r in rays) {
 				RaycastHit hit;
