@@ -1,4 +1,8 @@
-﻿#warning Upgrade NOTE: unity_Scale shader variable was removed; replaced 'unity_Scale.w' with '1.0'
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
+#warning Upgrade NOTE: unity_Scale shader variable was removed; replaced 'unity_Scale.w' with '1.0'
 
 Shader "MK/MKGlow/Reflective/DiffuseBumpedNoLight" {
 Properties {
@@ -52,16 +56,16 @@ uniform float4 _MainTex_ST, _BumpMap_ST;
 v2f vert(appdata_tan v)
 {
 	v2f o;
-	o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
+	o.pos = UnityObjectToClipPos (v.vertex);
 	o.uv = TRANSFORM_TEX(v.texcoord,_MainTex);
 	o.uv2 = TRANSFORM_TEX(v.texcoord,_BumpMap);
 	
 	o.I = -WorldSpaceViewDir( v.vertex );
 	
 	TANGENT_SPACE_ROTATION;
-	o.TtoW0 = mul(rotation, _Object2World[0].xyz * 1.0);
-	o.TtoW1 = mul(rotation, _Object2World[1].xyz * 1.0);
-	o.TtoW2 = mul(rotation, _Object2World[2].xyz * 1.0);
+	o.TtoW0 = mul(rotation, unity_ObjectToWorld[0].xyz * 1.0);
+	o.TtoW1 = mul(rotation, unity_ObjectToWorld[1].xyz * 1.0);
+	o.TtoW2 = mul(rotation, unity_ObjectToWorld[2].xyz * 1.0);
 	
 	return o; 
 }

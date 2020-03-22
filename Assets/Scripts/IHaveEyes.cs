@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class IHaveEyes : MonoBehaviour {
 
-	public float HowOften = 0.01f;
-	public float LastUpdate;
+	private float HowOften = 0.01f;
+	private float LastUpdate;
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +15,7 @@ public class IHaveEyes : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (true || LastUpdate + HowOften < Time.time) {
+		if (LastUpdate + HowOften < Time.time) {
 			LastUpdate = Time.time;
 
 			Vector3 start = transform.position + transform.up * 1.3f;
@@ -34,7 +34,7 @@ public class IHaveEyes : MonoBehaviour {
 
 					GameObject goHit = hit.collider.gameObject.transform.parent.gameObject;
 					if (goHit.GetComponent<Tile>() != null) {
-						goHit.AddComponent<MonsterSeesIt>().Prepare(GetComponent<Attributes>(), hit.distance, HowOften, Game.Me.MonsterSeesMaterial);
+						goHit.AddComponent<MonsterSeesIt>().Prepare(gameObject, hit.distance, HowOften, Game.Me.MonsterSeesMaterial);
 					}
 				}
 			}
